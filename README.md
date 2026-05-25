@@ -1,10 +1,10 @@
 # COS760 Project: Subword-Aware Neural Language Models
 
-This repository implements the COS760 project proposal: evaluating whether subword embeddings in a CNN-LSTM network improve multilingual stylistic classification compared with traditional TF-IDF, word n-gram, and character n-gram baselines.
+This repository implements a COS760 subword-aware neural language modelling experiment: evaluating whether subword embeddings in a CNN-LSTM network improve multilingual AfriSenti sentiment classification compared with traditional TF-IDF, word n-gram, and character n-gram baselines.
 
 ## What Is Implemented
 
-- CSV data loading with configurable `text`, `label`, and `language` columns.
+- CSV data loading with configurable text, target-label, and analysis-group columns.
 - Traditional baselines:
   - TF-IDF word n-grams with logistic regression.
   - TF-IDF character n-grams with logistic regression.
@@ -12,7 +12,7 @@ This repository implements the COS760 project proposal: evaluating whether subwo
 - A lightweight BPE tokenizer trained on the training split.
 - CNN-LSTM classifier using learned subword embeddings.
 - Evaluation with accuracy, weighted precision, weighted recall, weighted F1, and full classification reports.
-- Robustness analysis by language.
+- Robustness analysis by language or another configured grouping column.
 - Explanatory analysis:
   - Top TF-IDF features per class for baseline models.
   - Token occlusion explanations for the CNN-LSTM model.
@@ -88,7 +88,9 @@ Then run the full experiment with the real-dataset config:
 python -m src.run_experiments --config configs/afrisenti_all.json
 ```
 
-This is the main project run. It uses all exported AfriSenti language subsets and runs:
+This is the main project run. AfriSenti provides `tweet` text and sentiment labels (`positive`, `negative`, and `neutral`), so the supervised task is multilingual sentiment classification. Because the dataset does not include author or user IDs, it should not be presented as true authorship attribution. Robustness is evaluated across the available language column.
+
+It runs:
 
 - TF-IDF word logistic regression baseline.
 - TF-IDF character logistic regression baseline.
@@ -96,7 +98,7 @@ This is the main project run. It uses all exported AfriSenti language subsets an
 - BPE tokenizer training.
 - CNN-LSTM subword model training.
 - Overall classification metrics.
-- Per-language robustness analysis.
+- Robustness analysis by configured data group.
 - Explanation/error analysis outputs.
 
 The terminal prints progress while it runs, including baseline names, CNN-LSTM epoch loss/accuracy, early stopping, and output locations.
@@ -166,7 +168,7 @@ Example:
 }
 ```
 
-For a sentiment-classification version of the proposal, set `label_col` to the sentiment column. For an authorship/stylistic-attribution version, set `label_col` to the author, user, or writer column.
+For true authorship or writer-style attribution, use a different dataset with an `author`, `user_id`, or `writer` column and set `label_col` to that column. If no author/user labels exist, do not fabricate them. For AfriSenti, keep `label_col` set to the sentiment `label` column and discuss language-level robustness separately.
 
 Then rerun:
 
@@ -218,7 +220,7 @@ Set-ExecutionPolicy -Scope CurrentUser RemoteSigned
 ## Repository Layout
 
 - `configs/default.json`: optional smoke-test settings using the sample CSV.
-- `configs/afrisenti_all.json`: experiment settings for the exported AfriSenti dataset.
+- `configs/afrisenti_all.json`: main sentiment-classification settings for the exported AfriSenti dataset.
 - `data/sample/`: optional smoke-test CSV.
 - `data/raw/`: location for the exported real AfriSenti CSV.
 - `scripts/download_afrisenti.py`: exports AfriSenti Hugging Face subsets to a local CSV.
@@ -234,4 +236,4 @@ Set-ExecutionPolicy -Scope CurrentUser RemoteSigned
 
 ## Notes
 
-Use `configs/afrisenti_all.json` for the real project run and final report results. The sample config exists only to verify that the pipeline starts correctly.
+Use `configs/afrisenti_all.json` for the real project run and final report results. It predicts AfriSenti sentiment labels and reports robustness across languages. The sample config exists only to verify that the pipeline starts correctly.

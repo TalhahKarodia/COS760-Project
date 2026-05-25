@@ -23,9 +23,9 @@ def load_dataset(path: str | Path, text_col: str, label_col: str, language_col: 
         raise ValueError(f"Dataset is missing required columns: {sorted(missing)}")
 
     data = data[[text_col, label_col, language_col]].rename(
-        columns={text_col: "text", label_col: "label", language_col: "language"}
+        columns={text_col: "text", label_col: "label", language_col: "group"}
     )
-    data = data.dropna(subset=["text", "label", "language"]).copy()
+    data = data.dropna(subset=["text", "label", "group"]).copy()
     data["text"] = data["text"].astype(str).str.strip()
     data = data[data["text"] != ""].reset_index(drop=True)
     return data

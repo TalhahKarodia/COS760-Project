@@ -43,7 +43,7 @@ def main() -> None:
     summary = {
         "dataset_rows": len(data),
         "labels": list(splits.label_encoder.classes_),
-        "languages": sorted(data["language"].unique().tolist()),
+        "groups": sorted(data["group"].unique().tolist()),
         "train_rows": len(splits.train),
         "val_rows": len(splits.val),
         "test_rows": len(splits.test),
@@ -51,7 +51,7 @@ def main() -> None:
     log(
         "Split complete: "
         f"train={len(splits.train)}, val={len(splits.val)}, test={len(splits.test)}, "
-        f"labels={summary['labels']}, languages={summary['languages']}"
+        f"labels={summary['labels']}, groups={summary['groups']}"
     )
 
     if not args.skip_baselines:

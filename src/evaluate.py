@@ -27,13 +27,13 @@ def classification_metrics(y_true, y_pred, label_names: list[str]) -> dict:
 
 def robustness_by_language(frame: pd.DataFrame, label_names: list[str]) -> dict:
     scores = {}
-    for language, group in frame.groupby("language"):
-        scores[str(language)] = classification_metrics(group["label_id"], group["prediction_id"], label_names)
+    for group_name, group in frame.groupby("group"):
+        scores[str(group_name)] = classification_metrics(group["label_id"], group["prediction_id"], label_names)
     return scores
 
 
 def prediction_frame(source: pd.DataFrame, predictions, label_encoder) -> pd.DataFrame:
-    output = source[["text", "language", "label", "label_id"]].copy()
+    output = source[["text", "group", "label", "label_id"]].copy()
     output["prediction_id"] = predictions
     output["prediction"] = label_encoder.inverse_transform(predictions)
     output["correct"] = output["label_id"] == output["prediction_id"]
