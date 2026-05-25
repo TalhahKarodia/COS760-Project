@@ -1,0 +1,21 @@
+text,language,label
+"I love this phone, battery dey last and camera clear well well.",pcm,positive
+"This service be slow today, I no fit recommend am.",pcm,negative
+"The update made the app smoother and the interface feels fresh.",eng,positive
+"The delivery was late and the support team ignored my complaint.",eng,negative
+"Ngiyawuthanda lo msebenzi, kulula ukuwusebenzisa nsuku zonke.",zul,positive
+"Angijabule neze, uhlelo luyaphahlazeka njalo uma ngiluvula.",zul,negative
+"Ke rata tsela eo app e sebetsang ka potlako ka yona.",sot,positive
+"Ha e sebetse hantle, melaetsa ya ka e nyamela kgafetsa.",sot,negative
+"Die winkel was vriendelik en die pakket het betyds gekom.",afr,positive
+"Die produk is gebreek en niemand het terugvoering gegee nie.",afr,negative
+"I really enjoyed the helpful replies and quick refund process.",eng,positive
+"The login keeps failing, even after I reset the password.",eng,negative
+"Dis food sweet die, the seller package am nicely.",pcm,positive
+"Network wahala spoil everything, payment no enter but money commot.",pcm,negative
+"Umkhiqizo ufike ngesikhathi futhi usebenza ngendlela enhle.",zul,positive
+"Ikhwalithi iphansi kakhulu, angisoze ngiphinde ngithenge.",zul,negative
+"Tshebeletso e ne e le monate mme basebetsi ba thusa haholo.",sot,positive
+"Ke fumane phoso e ngata mme ha ho motho ya arabang.",sot,negative
+"Die toepassing is vinnig, netjies en maklik om te leer.",afr,positive
+"Ek moes drie keer wag en die bestelling was verkeerd.",afr,negative

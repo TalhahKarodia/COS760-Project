@@ -1,0 +1,33 @@
+{
+  "data": {
+    "path": "data/sample/afrisenti_style_sample.csv",
+    "text_col": "text",
+    "label_col": "label",
+    "language_col": "language",
+    "test_size": 0.2,
+    "val_size": 0.2,
+    "random_state": 42
+  },
+  "bpe": {
+    "vocab_size": 350,
+    "min_pair_frequency": 2,
+    "max_length": 64
+  },
+  "model": {
+    "embedding_dim": 96,
+    "cnn_filters": 96,
+    "kernel_size": 3,
+    "lstm_hidden": 96,
+    "dropout": 0.35,
+    "batch_size": 16,
+    "epochs": 8,
+    "learning_rate": 0.001,
+    "patience": 3
+  },
+  "baselines": {
+    "max_features": 8000,
+    "word_ngram_range": [1, 2],
+    "char_ngram_range": [3, 5]
+  },
+  "output_dir": "results"
+}
