@@ -16,7 +16,8 @@ This repository implements the COS760 project proposal: evaluating whether subwo
 - Explanatory analysis:
   - Top TF-IDF features per class for baseline models.
   - Token occlusion explanations for the CNN-LSTM model.
-- A small multilingual sample dataset for smoke testing.
+- A real AfriSenti dataset export workflow for running the main experiment.
+- A small multilingual sample dataset for optional smoke testing only.
 
 ## Prerequisites
 
@@ -29,6 +30,7 @@ Required Python packages are listed in `requirements.txt`:
 - `torch`
 - `numpy`
 - `matplotlib`
+- `datasets`
 
 ## First-Time Setup
 
@@ -64,17 +66,29 @@ python -m pip install -r requirements.txt
 
 After activation, your terminal prompt should show `(.venv)`. Use `python`, not `python3`, while the virtual environment is active.
 
-## Running The Project
+## Running The Project With The Real Dataset
 
 Make sure you are still in the project root directory and the virtual environment is active.
 
-Run the full experiment:
+First download and export the real AfriSenti dataset to a local CSV:
 
 ```bash
-python -m src.run_experiments --config configs/default.json
+python scripts/download_afrisenti.py
 ```
 
-This runs:
+This creates:
+
+```text
+data/raw/afrisenti_all_languages.csv
+```
+
+Then run the full experiment with the real-dataset config:
+
+```bash
+python -m src.run_experiments --config configs/afrisenti_all.json
+```
+
+This is the main project run. It uses all exported AfriSenti language subsets and runs:
 
 - TF-IDF word logistic regression baseline.
 - TF-IDF character logistic regression baseline.
@@ -86,6 +100,18 @@ This runs:
 - Explanation/error analysis outputs.
 
 The terminal prints progress while it runs, including baseline names, CNN-LSTM epoch loss/accuracy, early stopping, and output locations.
+
+To run only the traditional baselines on the real dataset:
+
+```bash
+python -m src.run_experiments --config configs/afrisenti_all.json --skip-neural
+```
+
+To run only the CNN-LSTM model on the real dataset:
+
+```bash
+python -m src.run_experiments --config configs/afrisenti_all.json --skip-baselines
+```
 
 ## Outputs
 
@@ -102,27 +128,7 @@ Important files:
 - `results/cnn_lstm_bpe/model.pt`: saved PyTorch model checkpoint.
 - `results/explanations/cnn_lstm_occlusion_explanations.csv`: token-level occlusion explanations.
 
-## Using The Real Dataset
-
-The included file `data/sample/afrisenti_style_sample.csv` is only a small smoke-test dataset.
-
-For the real AfriSenti experiment, export the Hugging Face dataset to a local CSV first:
-
-```bash
-python scripts/download_afrisenti.py
-```
-
-This downloads all 14 language subsets and writes:
-
-```text
-data/raw/afrisenti_all_languages.csv
-```
-
-Then run the experiment with the AfriSenti config:
-
-```bash
-python -m src.run_experiments --config configs/afrisenti_all.json
-```
+## Dataset Details
 
 The export script uses the Hugging Face dataset `shmuhammad/AfriSenti-twitter-sentiment` and its converted Parquet files. It exports these subset codes:
 
@@ -141,7 +147,7 @@ python scripts/download_afrisenti.py --languages amh hau pcm yor
 To use a different local CSV:
 
 1. Put the CSV file in `data/raw/`.
-2. Open a config file such as `configs/default.json` or `configs/afrisenti_all.json`.
+2. Open `configs/afrisenti_all.json`.
 3. Update the data path and column names.
 
 Example:
@@ -165,8 +171,10 @@ For a sentiment-classification version of the proposal, set `label_col` to the s
 Then rerun:
 
 ```bash
-python -m src.run_experiments --config configs/default.json
+python -m src.run_experiments --config configs/afrisenti_all.json
 ```
+
+The included `data/sample/afrisenti_style_sample.csv` file is only for quick smoke testing. Do not use it for the main project results.
 
 ## Common Issues
 
@@ -219,9 +227,10 @@ Run at least these configurations for the report:
 
 ## Repository Layout
 
-- `configs/default.json`: experiment settings.
+- `configs/default.json`: optional smoke-test settings using the sample CSV.
 - `configs/afrisenti_all.json`: experiment settings for the exported AfriSenti dataset.
-- `data/sample/`: smoke-test CSV.
+- `data/sample/`: optional smoke-test CSV.
+- `data/raw/`: location for the exported real AfriSenti CSV.
 - `scripts/download_afrisenti.py`: exports AfriSenti Hugging Face subsets to a local CSV.
 - `src/data.py`: dataset loading and train/validation/test splitting.
 - `src/bpe.py`: lightweight BPE tokenizer.
@@ -235,4 +244,4 @@ Run at least these configurations for the report:
 
 ## Notes
 
-The sample dataset is only for verifying that the pipeline runs. Use the real dataset before drawing conclusions in the final report.
+Use `configs/afrisenti_all.json` for the real project run and final report results. The sample config exists only to verify that the pipeline starts correctly.
