@@ -215,16 +215,6 @@ Set-ExecutionPolicy -Scope CurrentUser RemoteSigned
 .\.venv\Scripts\Activate.ps1
 ```
 
-## Suggested Final Experiments
-
-Run at least these configurations for the report:
-
-1. Full multilingual dataset with labels as authors or sentiment classes.
-2. Per-language robustness comparison using the generated `robustness_by_language` metrics.
-3. BPE vocabulary sensitivity, for example `vocab_size` of 250, 500, and 1000.
-4. Sequence-length sensitivity, for example `max_length` of 48, 96, and 128.
-5. Error analysis on misclassified examples using the generated explanation CSVs.
-
 ## Repository Layout
 
 - `configs/default.json`: optional smoke-test settings using the sample CSV.
