@@ -31,6 +31,10 @@ Required Python packages are listed in `requirements.txt`:
 - `numpy`
 - `matplotlib`
 - `datasets`
+- `huggingface-hub`
+- `pyarrow`
+
+The code was prepared for Python 3.10+ and uses the package version ranges specified in `requirements.txt`. The smoke test was last run successfully with Python 3.13.5, pandas 2.3.0, scikit-learn 1.7.0, torch 2.12.0, numpy 2.3.0, matplotlib 3.10.3, datasets 4.8.5, huggingface-hub 1.15.0, and pyarrow 24.0.0.
 
 ## First-Time Setup
 
@@ -217,12 +221,13 @@ Set-ExecutionPolicy -Scope CurrentUser RemoteSigned
 .\.venv\Scripts\Activate.ps1
 ```
 
-## Repository Layout
+## Contents Of The Zip File
 
 - `configs/default.json`: optional smoke-test settings using the sample CSV.
 - `configs/afrisenti_all.json`: main sentiment-classification settings for the exported AfriSenti dataset.
 - `data/sample/`: optional smoke-test CSV.
 - `data/raw/`: location for the exported real AfriSenti CSV.
+- `requirements.txt`: Python dependency list for recreating the environment.
 - `scripts/download_afrisenti.py`: exports AfriSenti Hugging Face subsets to a local CSV.
 - `src/data.py`: dataset loading and train/validation/test splitting.
 - `src/bpe.py`: lightweight BPE tokenizer.
@@ -233,6 +238,8 @@ Set-ExecutionPolicy -Scope CurrentUser RemoteSigned
 - `src/explain.py`: occlusion-based CNN-LSTM explanations.
 - `src/run_experiments.py`: one-command experiment runner.
 - `reports/final_report_outline.md`: report structure aligned to the brief.
+
+Do not include `.venv/`, `__pycache__/`, downloaded files in `data/raw/`, or generated experiment outputs in `results/` unless your lecturer explicitly requests them. The real dataset can be recreated with `scripts/download_afrisenti.py`, and the generated outputs can be recreated by running the experiment commands above.
 
 ## Notes
 
