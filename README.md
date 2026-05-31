@@ -92,7 +92,7 @@ Then run the full experiment with the real-dataset config:
 python -m src.run_experiments --config configs/afrisenti_all.json
 ```
 
-This is the main project run. AfriSenti provides `tweet` text and sentiment labels (`positive`, `negative`, and `neutral`), so the supervised task is multilingual sentiment classification. Because the dataset does not include author or user IDs, it should not be presented as true authorship attribution. Robustness is evaluated across the available language column.
+This is the main project run. AfriSenti provides `tweet` text and sentiment labels (`positive`, `negative`, and `neutral`), so the supervised task is multilingual sentiment classification. 
 
 It runs:
 
@@ -165,38 +165,6 @@ To download only specific languages, pass them with `--languages`:
 ```bash
 python scripts/download_afrisenti.py --languages amh hau pcm yor
 ```
-
-To use a different local CSV:
-
-1. Put the CSV file in `data/raw/`.
-2. Open `configs/afrisenti_all.json`.
-3. Update the data path and column names.
-
-Example:
-
-```json
-{
-  "data": {
-    "path": "data/raw/your_dataset.csv",
-    "text_col": "text",
-    "label_col": "label",
-    "language_col": "language",
-    "test_size": 0.2,
-    "val_size": 0.2,
-    "random_state": 42
-  }
-}
-```
-
-For true authorship or writer-style attribution, use a different dataset with an `author`, `user_id`, or `writer` column and set `label_col` to that column. If no author/user labels exist, do not fabricate them. For AfriSenti, keep `label_col` set to the sentiment `label` column and discuss language-level robustness separately.
-
-Then rerun:
-
-```bash
-python -m src.run_experiments --config configs/afrisenti_all.json
-```
-
-The included `data/sample/afrisenti_style_sample.csv` file is only for quick smoke testing. Do not use it for the main project results.
 
 ## Common Issues
 
