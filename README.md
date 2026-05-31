@@ -239,7 +239,6 @@ Set-ExecutionPolicy -Scope CurrentUser RemoteSigned
 - `src/run_experiments.py`: one-command experiment runner.
 - `reports/final_report_outline.md`: report structure aligned to the brief.
 
-Do not include `.venv/`, `__pycache__/`, downloaded files in `data/raw/`, or generated experiment outputs in `results/` unless your lecturer explicitly requests them. The real dataset can be recreated with `scripts/download_afrisenti.py`, and the generated outputs can be recreated by running the experiment commands above.
 
 ## Notes
 
