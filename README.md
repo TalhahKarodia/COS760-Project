@@ -134,6 +134,22 @@ Important files:
 - `results/cnn_lstm_bpe/model.pt`: saved PyTorch model checkpoint.
 - `results/explanations/cnn_lstm_occlusion_explanations.csv`: token-level occlusion explanations.
 
+To create a cleaner report from the JSON/CSV outputs, run:
+
+```bash
+python scripts/generate_results_report.py
+```
+
+This creates:
+
+- `reports/results_report.md`: readable Markdown summary with tables and linked figures.
+- `reports/tables/overall_metrics.csv`: compact comparison of all models.
+- `reports/tables/language_robustness.csv`: model performance by language.
+- `reports/tables/class_metrics.csv`: per-class precision, recall, F1, and support.
+- `reports/figures/overall_metrics.png`: overall metric comparison chart.
+- `reports/figures/language_weighted_f1.png`: language-level robustness chart.
+- `reports/figures/cnn_lstm_training_history.png`: CNN-LSTM training curves when available.
+
 ## Dataset Details
 
 The export script uses the Hugging Face dataset `shmuhammad/AfriSenti-twitter-sentiment` and its converted Parquet files. It exports these subset codes:
@@ -228,7 +244,12 @@ Set-ExecutionPolicy -Scope CurrentUser RemoteSigned
 - `data/sample/`: optional smoke-test CSV.
 - `data/raw/`: location for the exported real AfriSenti CSV.
 - `requirements.txt`: Python dependency list for recreating the environment.
+- `reports/final_report_outline.md`: report structure aligned to the brief.
+- `reports/results_report.md`: optional generated readable result summary, if `scripts/generate_results_report.py` has been run.
+- `reports/figures/`: optional generated result charts.
+- `reports/tables/`: optional generated result tables.
 - `scripts/download_afrisenti.py`: exports AfriSenti Hugging Face subsets to a local CSV.
+- `scripts/generate_results_report.py`: converts experiment outputs into neat Markdown, CSV tables, and charts.
 - `src/data.py`: dataset loading and train/validation/test splitting.
 - `src/bpe.py`: lightweight BPE tokenizer.
 - `src/baselines.py`: TF-IDF baselines.
@@ -237,7 +258,6 @@ Set-ExecutionPolicy -Scope CurrentUser RemoteSigned
 - `src/evaluate.py`: metrics and robustness reporting.
 - `src/explain.py`: occlusion-based CNN-LSTM explanations.
 - `src/run_experiments.py`: one-command experiment runner.
-- `reports/final_report_outline.md`: report structure aligned to the brief.
 
 
 ## Notes
